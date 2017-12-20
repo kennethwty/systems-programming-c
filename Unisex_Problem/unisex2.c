@@ -45,7 +45,6 @@ void* female(thr_data* arg) {
       {  // must wait
          // Increase the number of women waiting for the bathroom and then
          shared_info->female_waiting = shared_info->female_waiting + 1;
-         //printf("female #%d waits\n", id);
          while(shared_info->bmales > 0 || shared_info->bfemales >= shared_info->nstalls || shared_info->bmales >= shared_info->nstalls)
          {
              // must wait
@@ -54,15 +53,6 @@ void* female(thr_data* arg) {
              pthread_cond_wait(&shared_info->f_available, &shared_info->mutex);
          } shared_info->female_waiting = shared_info->female_waiting - 1; // done waiting
       }
-      /* If the number of stalls reached max, wait */
-
-      /*while(shared_info->bfemales >= shared_info->nstalls)
-      {
-         // wait as long as no free stalls
-          pthread_cond_wait(&shared_info->available, &shared_info->mutex);
-      }*/
-
-      //shared_info->female_waiting = shared_info->female_waiting - 1;
       shared_info->bfemales++;
       printf("female #%d enters bathroom\n", id);
       pthread_mutex_unlock(&shared_info->mutex);
@@ -100,15 +90,6 @@ void* male(thr_data* arg) {
                 pthread_cond_wait(&shared_info->m_available, &shared_info->mutex);
          //}
       }
-
-      /* If the number of stalls reached max, wait */
-      /*while(shared_info->bfemales >= shared_info->nstalls || shared_info->bmales >= shared_info->nstalls)
-      {
-         // wait as long as no free stalls
-         pthread_cond_wait(&shared_info->available, &shared_info->mutex);
-      }*/
-
-      //shared_info->female_waiting = shared_info->female_waiting - 1;
       shared_info->bmales++;
       printf("male #%d enters bathroom\n", id);
       pthread_mutex_unlock(&shared_info->mutex);
