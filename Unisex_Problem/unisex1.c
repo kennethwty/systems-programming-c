@@ -42,13 +42,7 @@ void* female(thr_data* arg) {
          printf("female #%d waits\n", id);
          pthread_cond_wait(&shared_info->available, &shared_info->mutex);
       }
-      /* If the number of stalls reached max, wait */
-      /*while(shared_info->bfemales >= shared_info->nstalls || shared_info->bmales >= shared_info->nstalls)
-      {
-         // wait as long as no free stalls
-         pthread_cond_wait(&shared_info->available, &shared_info->mutex);
-      }*/
-
+      
       shared_info->bfemales++;
       printf("female #%d enters bathroom\n", id);
       pthread_mutex_unlock(&shared_info->mutex);
@@ -79,17 +73,7 @@ void* male(thr_data* arg) {
          printf("male #%d waits\n", id);
          pthread_cond_wait(&shared_info->available, &shared_info->mutex);
       }
-        /*while(shared_info->bfemales >= shared_info->nstalls || shared_info->bmales >= shared_info->nstalls)
-        {
-                pthread_cond_wait(&shared_info->available, &shared_info->mutex);
-        }*/
-
-      /*
-      while(shared_info->bmales == shared_info->nstalls)
-      {
-         // wait as long as no free stalls
-         pthread_cond_wait(&shared_info->available, &shared_info->mutex);
-      }*/
+      
       shared_info->bmales++;
       printf("male #%d enters bathroom\n", id);
       pthread_mutex_unlock(&shared_info->mutex);
