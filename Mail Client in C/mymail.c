@@ -87,7 +87,6 @@ int main(int argc, char*argv[]){
         /* Now that the connection is made in sockfd (variable holding the sockets
          * file descriptor), gather the information to send to the server, talk to
          * the server to read it, and implement mail protocol here! */
-        // TODO implement me!
 
         /* declare structures*/
         Email e;
@@ -198,7 +197,6 @@ int main(int argc, char*argv[]){
 }
 
 int socket_send(int sid, char* message) {
-        // TODO implement me!
         size_t length = strlen(message);
         /* check if the entire string is sent */
         int size = 0;
@@ -212,7 +210,6 @@ int socket_send(int sid, char* message) {
 }
 
 int  socket_read(int sid, Payload* p) {
-        // TODO implement me!
         int result_byte;
         int buf_len = strlen(p->buf);
         /* read the response from the server and store it into buffer */
